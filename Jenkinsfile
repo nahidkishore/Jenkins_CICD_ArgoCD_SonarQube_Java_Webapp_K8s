@@ -6,22 +6,7 @@ pipeline {
     }
   }
 
-{
-    stage('Build Your Docker Image') {
-      steps {
-        script {
-          // Clone your source code or copy it from a workspace
-          // You may need to perform any necessary build steps here
-          
-          // Build your Docker image
-          def customDockerImage = docker.build('nahid0002/maven-plus-docker:latest')
-          
-          // Push the Docker image to a registry if needed
-          customDockerImage.push()
-        }
-      }
-    }
-  }
+
   
   stages {
     stage('Build and Test') {
