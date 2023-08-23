@@ -5,7 +5,6 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
-
   stages {
     stage('Build and Test') {
       steps {
