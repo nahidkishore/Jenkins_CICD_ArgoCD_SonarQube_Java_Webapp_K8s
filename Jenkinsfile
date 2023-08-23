@@ -1,10 +1,28 @@
 pipeline {
   agent {
     docker {
-      image 'nahidooo2/maven-plus-docker'
+      image 'chaitannyaa/maven-plus-docker'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
+
+{
+    stage('Build Your Docker Image') {
+      steps {
+        script {
+          // Clone your source code or copy it from a workspace
+          // You may need to perform any necessary build steps here
+          
+          // Build your Docker image
+          def customDockerImage = docker.build('nahid0002/maven-plus-docker:latest')
+          
+          // Push the Docker image to a registry if needed
+          customDockerImage.push()
+        }
+      }
+    }
+  }
+  
   stages {
     stage('Build and Test') {
       steps {
