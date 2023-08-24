@@ -6,6 +6,13 @@ pipeline {
     }
   }
   stages {
+
+    stage('Clean Workspace') {
+    steps {
+        cleanWs()
+    }
+}
+
     stage('Build and Test') {
       steps {
         // build the project and create a JAR file
