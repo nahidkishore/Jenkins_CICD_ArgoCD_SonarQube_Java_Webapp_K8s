@@ -7,18 +7,12 @@ pipeline {
   }
   stages {
 
-    stage('Clean Workspace') {
-    steps {
-        cleanWs()
-    }
-}
-
-   /*  stage('Build and Test') {
+    stage('Build and Test') {
       steps {
         // build the project and create a JAR file
         sh 'mvn clean package'
       }
-    } */
+    }
     stage('Code Analysis with SonarQube') {
       environment {
         SONAR_URL = "http://3.85.114.121:9000"
@@ -31,14 +25,14 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "ultimate-cicd-pipeline:latest:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "ultimate-cicd-pipeline:v1:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('DockerHub')
       }
       steps {
         script {
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
-            docker.withRegistry('https://index.docker.io/latest/', "DockerHub") {
+            docker.withRegistry('https://index.docker.io/v1/', "DockerHub") {
                 dockerImage.push()
             }
         }
