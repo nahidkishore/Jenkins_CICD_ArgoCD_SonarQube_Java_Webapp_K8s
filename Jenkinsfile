@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "nahid0002/ultimate-cicd-pipeline:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "ultimate-cicd-pipeline:v1:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('DockerHub')
       }
       steps {
