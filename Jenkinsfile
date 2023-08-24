@@ -24,14 +24,14 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "ultimate-cicd-pipeline:v1:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "ultimate-cicd-pipeline:latest:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('DockerHub')
       }
       steps {
         script {
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
-            docker.withRegistry('https://index.docker.io/v1/', "DockerHub") {
+            docker.withRegistry('https://index.docker.io/latest/', "DockerHub") {
                 dockerImage.push()
             }
         }
