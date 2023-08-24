@@ -5,6 +5,9 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
+
+
+
   stages {
     stage('Build and Test') {
       steps {
@@ -24,7 +27,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "nahid0002/ultimate-cicd-pipeline:v1:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "nahid0002/ultimate-cicd-pipeline:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('DockerHub')
       }
       steps {
