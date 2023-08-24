@@ -2,11 +2,10 @@ pipeline {
   agent {
     docker {
       image 'chaitannyaa/maven-plus-docker'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock -v /home/ubuntu/Jenkins_CICD_ArgoCD_Sonarcube_Java_Webapp_K8s:/app' // mount Docker socket to access the host's Docker daemon
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
   stages {
-
     stage('Build and Test') {
       steps {
         // build the project and create a JAR file
@@ -25,7 +24,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "ultimate-cicd-pipeline:v1:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "nahid0002/ultimate-cicd-pipeline:v1:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('DockerHub')
       }
       steps {
